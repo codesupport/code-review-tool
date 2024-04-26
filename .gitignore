@@ -3,4 +3,5 @@ firestore-debug.log
 ui-debug.log
 .firebase/
 .idea
+.env
 node_modules/
