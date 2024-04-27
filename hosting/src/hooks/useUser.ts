@@ -9,8 +9,7 @@ export function useUser() {
 
 	useEffect(() => {
 		const listener = onAuthStateChanged(auth, (user) => {
-			setUser(user ?? undefined)
-			console.log(user);
+			setUser(user ?? undefined);
 		});
 
 		return () => listener();
