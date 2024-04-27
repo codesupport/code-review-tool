@@ -1,0 +1,16 @@
+{
+  "name": "codesupport-code-review-tool",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "npx firebase-tools emulators:start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codesupport/code-review-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codesupport/code-review-tool/issues"
+  },
+  "homepage": "https://github.com/codesupport/code-review-tool#readme"
+}
