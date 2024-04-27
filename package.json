@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "npx firebase-tools emulators:start"
+    "dev": "npx firebase-tools emulators:start --import=emulator"
   },
   "repository": {
     "type": "git",
