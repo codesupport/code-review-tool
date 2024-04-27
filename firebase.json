@@ -5,7 +5,7 @@
   },
   "hosting": {
     "site": "codesupport-code-review-tool",
-    "public": "hosting",
+    "public": "hosting/build",
     "ignore": [
       "firebase.json",
       "**/.*",
