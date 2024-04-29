@@ -1,0 +1,65 @@
+{
+  "kind": "identitytoolkit#DownloadAccountResponse",
+  "users": [
+    {
+      "localId": "ZPbgzdoH6ZscSE5yNR5ymejgFBXZ",
+      "displayName": "LamboCreeper",
+      "screenName": "LamboCreeper",
+      "email": "test-user-one@example.codesupport.dev",
+      "emailVerified": true,
+      "createdAt": "1714227192805",
+      "lastLoginAt": "1714227192805",
+      "providerUserInfo": [
+        {
+          "providerId": "github.com",
+          "rawId": "12111454",
+          "federatedId": "12111454",
+          "displayName": "LamboCreeper",
+          "email": "test-user-one@example.codesupport.dev",
+          "screenName": "LamboCreeper"
+        }
+      ],
+      "lastRefreshAt": "2024-04-27T14:13:12.805Z"
+    },
+    {
+      "localId": "azhsa0YFQ8gLf0VjucSt74Xw2RVX",
+      "displayName": "Jason2605",
+      "screenName": "Jason2605",
+      "email": "test-user-two@example.codesupport.dev",
+      "emailVerified": true,
+      "createdAt": "1714227177982",
+      "lastLoginAt": "1714227177982",
+      "providerUserInfo": [
+        {
+          "providerId": "github.com",
+          "rawId": "20248039",
+          "federatedId": "20248039",
+          "displayName": "Jason2605",
+          "email": "test-user-two@example.codesupport.dev",
+          "screenName": "Jason2605"
+        }
+      ],
+      "lastRefreshAt": "2024-04-27T14:12:57.982Z"
+    },
+    {
+      "localId": "pzwmBlQVucvzfqfk5ivOWecefFeJ",
+      "displayName": "TheBoxMage",
+      "screenName": "TheBoxMage",
+      "email": "test-user-three@example.codesupport.dev",
+      "emailVerified": true,
+      "createdAt": "1714227161307",
+      "lastLoginAt": "1714227161307",
+      "providerUserInfo": [
+        {
+          "providerId": "github.com",
+          "rawId": "24238773",
+          "federatedId": "24238773",
+          "displayName": "TheBoxMage",
+          "email": "test-user-three@example.codesupport.dev",
+          "screenName": "TheBoxMage"
+        }
+      ],
+      "lastRefreshAt": "2024-04-27T14:12:41.307Z"
+    }
+  ]
+}
