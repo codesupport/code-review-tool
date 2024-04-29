@@ -11,7 +11,7 @@ export function ProtectedPageTemplate() {
 	if (!user) {
 		return (
 			<main>
-				{loading ? <p>Loading...</p> : <button type="button" onClick={() => login()}>
+				{loading ? <p>Loading...</p> : <button type="button" onClick={login}>
 					Login with GitHub
 				</button>}
 			</main>
@@ -21,7 +21,7 @@ export function ProtectedPageTemplate() {
 	return (
 		<>
 			<header>
-				<button type="button" onClick={() => logout()}>
+				<button type="button" onClick={logout}>
 					Logout
 				</button>
 			</header>
