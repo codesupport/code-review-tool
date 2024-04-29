@@ -4,3 +4,4 @@ ui-debug.log
 .firebase/
 .idea
 node_modules/
+hosting/build

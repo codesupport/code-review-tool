@@ -1,5 +1,6 @@
 # Code Review Tool
 
 1. Set the correct Node version via `nvm use`
-2. Run locally via `npm run dev`
-   - This will start the Firebase emulators to ensure you are working locally
+2. Start the Firebase Emulators via `npm run dev`
+3. Start the React development server by running `npm start` within the `hosting` directory
+   - In order to authenticate locally, you will need to use `127.0.0.1` rather than `localhost`
