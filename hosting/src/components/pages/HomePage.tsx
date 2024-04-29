@@ -11,9 +11,8 @@ export function HomePage() {
 
     useEffect(() => {
         if (!user) return;
-
         (async () => {
-            const [gitUser] = await request<IGitHubUser[]>(`users?since=${+(user.providerData[0].uid) - 1}`);
+            const [gitUser] = await request<IGitHubUser[]>(`users?since=${+(user.providerData[0].uid) - 1}&per_page=1`);
             const repos = await request<IGitHubRepository[]>(`users/${gitUser.login.toLowerCase()}/repos`);
 
             setRepositories(repos);
