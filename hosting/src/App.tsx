@@ -8,11 +8,11 @@ function App() {
     const [user, setUser] = useState<User | undefined>();
 
     useEffect(() => {
-        const listener = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user ?? undefined);
         });
 
-        return () => listener();
+        return () => unsubscribe();
     }, []);
 
     const handleLogin = async () => {
