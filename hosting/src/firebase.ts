@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { connectAuthEmulator, getAuth } from "firebase/auth";
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 export const app = initializeApp({
 	apiKey: "AIzaSyBZh6KFSTk8Ue33Lve7CETgJU9JpTfBAJg",
@@ -22,4 +23,9 @@ const emulatorDetails = {
 if (process.env.REACT_APP_ENV !== "production") {
 	connectAuthEmulator(getAuth(), emulatorDetails.authURL!);
 	connectFirestoreEmulator(getFirestore(), emulatorDetails.firestoreHost!, +emulatorDetails.firestorePort!);
+} else {
+	initializeAppCheck(app, {
+		provider: new ReCaptchaV3Provider("6LenhPoZAAAAAIE_6OQ4Aj6FwFd531NcLxh_a386"),
+		isTokenAutoRefreshEnabled: true
+	});
 }
