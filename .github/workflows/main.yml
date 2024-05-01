@@ -12,6 +12,12 @@ jobs:
           echo "REACT_APP_ENV=production" >> .env
           npm ci
           npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hosting
+          path: ./hosting/build
+          retention-days: 1
+          if-no-files-found: error
 
   deploy:
     runs-on: ubuntu-latest
@@ -23,4 +29,8 @@ jobs:
       - build
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v4
+        with:
+          name: hosting
+          path: ./hosting/build
       - run: npx firebase-tools deploy --token "${{ secrets.FIREBASE_TOKEN }}"
