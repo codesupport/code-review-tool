@@ -17,7 +17,7 @@ export function HomePage() {
 
             setRepositories(repos);
         })();
-    }, [user]);
+    }, [user, request]);
 
     return (
         <main>
