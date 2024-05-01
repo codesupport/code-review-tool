@@ -23,4 +23,4 @@ jobs:
       - build
     steps:
       - uses: actions/checkout@v3
-      - run: npx firebase-tools deploy --token $FIREBASE_TOKEN
+      - run: npx firebase-tools deploy --token "${{ secrets.FIREBASE_TOKEN }}"
