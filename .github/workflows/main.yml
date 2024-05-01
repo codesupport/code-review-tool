@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          cd hosting
+          echo "REACT_APP_ENV=production" >> .env
+          npm ci
+          npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://crt.codesupport.dev
+    if: github.ref == 'refs/heads/master'
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+      - run: npx firebase-tools deploy --token $FIREBASE_TOKEN
