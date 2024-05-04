@@ -1,5 +1,6 @@
 import { IGitHubUser } from "../interfaces/github/IGitHubUser";
 import { IGitHubRepository } from "../interfaces/github/IGitHubRepository";
+import { IGitHubBranch } from "../interfaces/github/IGitHubBranch";
 
 export class GitHubService {
 	private static BASE_URL = "https://api.github.com";
@@ -24,7 +25,7 @@ export class GitHubService {
 		return this.makeRequest(`users/${username.toLowerCase()}/repos`);
 	}
 
-	async getRepositoryBranches(username: string, repository: string): Promise<any[]> {
+	async getRepositoryBranches(username: string, repository: string): Promise<IGitHubBranch[]> {
 		return this.makeRequest(`repos/${username.toLowerCase()}/${repository.toLowerCase()}/branches`);
 	}
 }
