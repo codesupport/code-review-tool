@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HomePage } from "./components/pages/HomePage";
 import { ErrorPage } from "./components/pages/ErrorPage";
 import { ProtectedPageTemplate } from "./components/templates/ProtectedPageTemplate";
+import { ImportRepositoryPage } from "./components/pages/ImportRepositoryPage";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <HomePage />,
+            },
+            {
+                path: "/repositories/import",
+                element: <ImportRepositoryPage />
             }
         ]
     }
