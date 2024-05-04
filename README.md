@@ -8,5 +8,8 @@
 
 ## Project Guidelines
 
+### Components Structure
+We follow the [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) methodology for organising our components. It provides a clear way to structure consistent and scalable components which relates to their final context. 
+
 ### React Query Usage
 We use the [React Query](https://tanstack.com/query/latest/docs/framework/react/overview) library for handling caching and synchronisation of our API calls. For consistency, we use the format `[<service-being-called>, <endpoint>, <parameter>]` for our [query keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) (for example: `["github", "repositories", "example-user"]`). We ask that you keep the implementation of [query functions](https://tanstack.com/query/latest/docs/framework/react/guides/query-functions) slim, placing most the logic in the service layer.
