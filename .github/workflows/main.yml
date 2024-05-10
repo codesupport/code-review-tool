@@ -9,7 +9,6 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           cd hosting
-          echo "REACT_APP_ENV=production" >> .env
           npm ci
           npm run build
       - uses: actions/upload-artifact@v4
