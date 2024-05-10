@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../../hooks/useUser";
-import { useGitHub } from "../../hooks/useGitHub";
-import { IGitHubUser } from "../../interfaces/github/IGitHubUser";
+import { githubService } from "../../services/GitHubService";
 import { IGitHubRepository } from "../../interfaces/github/IGitHubRepository";
 
 export function HomePage() {
     const [user] = useUser();
-    const [request] = useGitHub();
-    const [repositories, setRepositories] = useState<any[]>([]);
+    const { data: gitUser } = useQuery({
+        queryKey: ["github", "users", user?.providerData[0].uid],
+        queryFn: async () => githubService.getUserById(+user!.providerData[0].uid),
+        enabled: !!user
+    });
 
-    useEffect(() => {
-        if (!user) return;
-        (async () => {
-            const [gitUser] = await request<IGitHubUser[]>(`users?since=${+(user.providerData[0].uid) - 1}&per_page=1`);
-            const repos = await request<IGitHubRepository[]>(`users/${gitUser.login.toLowerCase()}/repos`);
-
-            setRepositories(repos);
-        })();
-    }, [user, request]);
+    const { data: gitRepositories } = useQuery({
+        queryKey: ["github", "repositories", gitUser?.login.toLowerCase()],
+        queryFn: async () => githubService.getUsersRepositories(gitUser!.login),
+        enabled: !!gitUser
+    });
 
     return (
         <main>
@@ -30,7 +28,7 @@ export function HomePage() {
                     <pre>{JSON.stringify(user)}</pre>
                     <h2>Repositories</h2>
                     <ul>
-                        {repositories?.map(repo => <li key={repo.id}>{repo.name}</li>)}
+                        {gitRepositories?.map((repo: IGitHubRepository) => <li key={repo.id}>{repo.name}</li>)}
                     </ul>
                 </div>
             )}
