@@ -1,13 +1,18 @@
-import { DropdownWithTitle}  from "../molecules/DropdownWithTitle";
 import { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { serverTimestamp } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { DropdownWithTitle }  from "../molecules/DropdownWithTitle";
 import { useUser } from "../../hooks/useUser";
-import { useQuery } from "@tanstack/react-query";
 import { githubService } from "../../services/GitHubService";
+import { gitRepositoryRepository } from "../../repositories/GitRepositoryRepository";
+import { GitRepositoryModel } from "../../models/GitRepositoryModel";
 
 export function ImportRepositoryPage() {
 	const [user] = useUser();
 	const [chosenRepository, setChosenRepository] = useState<string | undefined>();
 	const [chosenBranch, setChosenBranch] = useState<string | undefined>();
+	const navigate = useNavigate();
 
 	const { data: gitUser } = useQuery({
 		queryKey: ["github", "users", user?.providerData[0].uid],
@@ -27,11 +32,46 @@ export function ImportRepositoryPage() {
 		enabled: !!chosenRepository
 	});
 
+	const repositoryMutation = useMutation({
+		mutationFn: async (newRepository: GitRepositoryModel) => gitRepositoryRepository.create(newRepository),
+		onSuccess: (documentId) => {
+			navigate(`../review/${documentId}`);
+		}
+	});
+
 	useEffect(() => {
 		if (chosenRepository) {
 			setChosenBranch(gitRepositories?.find(repo => repo.name.toLowerCase() === chosenRepository.toLowerCase())?.default_branch)
 		}
 	}, [chosenRepository, gitRepositories]);
+
+	const handleCreateRepository = async () => {
+		if (!chosenRepository && !chosenBranch) return;
+
+		try {
+			const repo = gitRepositories?.find(({ name }) => name === chosenRepository);
+			const branch = gitBranches?.find(({ name }) => name === chosenBranch);
+
+			if (!repo || !branch || !user) {
+				alert("Unable to create repository. Please be authenticated and select a repository and branch.");
+
+				return;
+			}
+
+			console.log("Creating...");
+
+			repositoryMutation.mutate({
+				created: serverTimestamp(),
+				git_url: repo.git_url.toLowerCase(),
+				branch: branch.name,
+				commit: branch.commit.sha,
+				user: user.uid,
+				reviewers: []
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<main>
@@ -57,7 +97,7 @@ export function ImportRepositoryPage() {
 				})) ?? []}
 				handleOnChange={selected => setChosenBranch(selected.target.value)}
 			/>
-			<button disabled={!chosenRepository && !chosenBranch} type="button" onClick={() => alert(`You selected ${chosenBranch} for ${chosenRepository}!`)}>
+			<button disabled={!chosenRepository && !chosenBranch} type="button" onClick={handleCreateRepository}>
 				Next
 			</button>
 		</main>
