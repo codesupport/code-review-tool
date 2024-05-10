@@ -5,3 +5,4 @@ ui-debug.log
 .idea
 node_modules/
 hosting/build
+hosting/dist
