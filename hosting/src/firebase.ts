@@ -15,12 +15,12 @@ export const app = initializeApp({
 });
 
 const emulatorDetails = {
-	authURL: process.env.REACT_APP_FIREBASE_AUTH_EMULATOR_URL,
-	firestoreHost: process.env.REACT_APP_FIREBASE_FIRESTORE_EMULATOR_HOST,
-	firestorePort: process.env.REACT_APP_FIREBASE_FIRESTORE_EMULATOR_PORT
+	authURL: import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_URL,
+	firestoreHost: import.meta.env.VITE_FIREBASE_FIRESTORE_EMULATOR_HOST,
+	firestorePort: import.meta.env.VITE_FIREBASE_FIRESTORE_EMULATOR_PORT
 };
 
-if (process.env.REACT_APP_ENV !== "production") {
+if (import.meta.env.DEV) {
 	connectAuthEmulator(getAuth(), emulatorDetails.authURL!);
 	connectFirestoreEmulator(getFirestore(), emulatorDetails.firestoreHost!, +emulatorDetails.firestorePort!);
 } else {

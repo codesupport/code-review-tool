@@ -15,7 +15,7 @@ export function useUser() {
 
 			const credential = GithubAuthProvider.credentialFromResult(result);
 
-			sessionStorage.setItem("github_token", process.env.REACT_APP_LOCAL_GITHUB_TOKEN ?? credential!.accessToken!);
+			sessionStorage.setItem("github_token", import.meta.env.VITE_LOCAL_GITHUB_TOKEN ?? credential!.accessToken!);
 		})();
 
 		const listener = onAuthStateChanged(auth, (user) => {
