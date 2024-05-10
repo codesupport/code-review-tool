@@ -5,5 +5,10 @@ service cloud.firestore {
     match /{document=**} {
       allow read, write: if false;
     }
+
+    match /crt_repositories/{repository} {
+        allow read: if (request.auth.uid in request.resource.data.reviewers) || (request.auth.uid == request.resource.data.user);
+        allow write: if request.auth.uid == request.resource.data.user;
+    }
   }
 }
