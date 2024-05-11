@@ -14,7 +14,7 @@ export function HomePage() {
                     <h1>Hello {user.displayName}</h1>
                     <pre>{JSON.stringify(user)}</pre>
                     <h2>Repositories</h2>
-                    <p>You have no yet imported any repositories.</p>
+                    <p>You have not yet imported any repositories.</p>
                     <Link to="repositories/import">Import One</Link>
                 </div>
             )}
