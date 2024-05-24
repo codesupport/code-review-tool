@@ -1,11 +1,16 @@
 import { IGitHubUser } from "../interfaces/github/IGitHubUser";
 import { IGitHubRepository } from "../interfaces/github/IGitHubRepository";
+import { IGitHubBranch } from "../interfaces/github/IGitHubBranch";
 
 export class GitHubService {
 	private static BASE_URL = "https://api.github.com";
 
 	private async makeRequest<T>(path: string): Promise<T> {
-		const res = await fetch(`${GitHubService.BASE_URL}/${path}`);
+		const res = await fetch(`${GitHubService.BASE_URL}/${path}`, {
+			headers: {
+				"Authorization": `Bearer ${sessionStorage.getItem("github_token")}`
+			}
+		});
 
 		return res.json();
 	}
@@ -18,6 +23,10 @@ export class GitHubService {
 
 	async getUsersRepositories(username: string): Promise<IGitHubRepository[]> {
 		return this.makeRequest(`users/${username.toLowerCase()}/repos`);
+	}
+
+	async getRepositoryBranches(username: string, repository: string): Promise<IGitHubBranch[]> {
+		return this.makeRequest(`repos/${username.toLowerCase()}/${repository.toLowerCase()}/branches`);
 	}
 }
 

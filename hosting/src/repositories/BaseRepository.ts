@@ -17,10 +17,11 @@ export abstract class BaseRepository<T extends BaseModel> {
 		return snapshot.data();
 	}
 
-	async create(data: T): Promise<void> {
+	async create(data: T): Promise<string> {
 		const ref = collection(this.firestore, this.collection);
+		const doc = await addDoc(ref, data);
 
-		await addDoc(ref, data);
+		return doc.id;
 	}
 
 	async createWithId(id: string, data: T): Promise<void> {
