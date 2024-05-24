@@ -8,7 +8,16 @@ service cloud.firestore {
 
     match /crt_repositories/{repository} {
         allow read: if (request.auth.uid in request.resource.data.reviewers) || (request.auth.uid == request.resource.data.user);
-        allow write: if request.auth.uid == request.resource.data.user;
+        allow write: if request.auth.uid == request.resource.data.user && hasUniqueFieldValue(database, "crt_repositories", request, "hash");
     }
+
+    match /z_UNIQUE_CONSTRAINTS/{collection}/{field}/{value} {
+        allow read: if true;
+        allow write: if get(/databases/$(database)/documents/$(collection)/$(request.resource.data.for_document)).data.user == request.auth.uid;
+    }
+  }
+
+  function hasUniqueFieldValue(database, collection, request, field) {
+    return !exists(/databases/$(database)/documents/z_UNIQUE_CONSTRAINTS/$(collection)/$(field)/$(request.resource.data[field]));
   }
 }

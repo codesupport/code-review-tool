@@ -66,7 +66,8 @@ export function ImportRepositoryPage() {
 				branch: branch.name,
 				commit: branch.commit.sha,
 				user: user.uid,
-				reviewers: []
+				reviewers: [],
+				hash: `${repo.id}:${branch.commit.sha}`
 			});
 		} catch (error) {
 			console.error(error);
