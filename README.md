@@ -7,7 +7,7 @@
    1. Navigate into the `hosting` directory
    2. Run `npm i`
    3. Create a `.env` file based off of `.env.sample`
-      - You can get a GitHub token from [here](https://github.com/settings/tokens)
+      - You can get a GitHub token from [here](https://github.com/settings/tokens) - please ensure it has the scopes `public_repo`, `read:user` and `user:email`
    4. Start the React development server via `npm start`
       - In order to authenticate locally, you will need to use `127.0.0.1` rather than `localhost`
 
