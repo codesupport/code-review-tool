@@ -3,7 +3,7 @@ import { app } from "../firebase";
 import { BaseModel } from "../models/BaseModel";
 
 export abstract class BaseRepository<T extends BaseModel> {
-	private readonly firestore = getFirestore(app);
+	protected readonly firestore = getFirestore(app);
 
 	protected constructor(
 		protected readonly collection: string
