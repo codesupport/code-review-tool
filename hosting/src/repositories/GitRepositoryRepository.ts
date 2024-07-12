@@ -13,7 +13,15 @@ export class GitRepositoryRepository extends BaseRepository<GitRepositoryModel> 
 		const q = query(ref, where("user", "==", userId));
 		const snapshot = await getDocs(q);
 
-		return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as WithId<GitRepositoryModel>);
+		return snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}) as WithId<GitRepositoryModel>);
+	}
+
+	async create(data: GitRepositoryModel): Promise<string> {
+		const documentId = await super.create(data);
+
+		await this.createUniqueField(documentId, "hash", data.hash);
+
+		return documentId;
 	}
 }
 

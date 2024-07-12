@@ -1,13 +1,32 @@
-import { doc, getDoc, setDoc, addDoc, getFirestore, collection, type DocumentData} from "firebase/firestore";
+import {
+	doc,
+	getDoc,
+	setDoc,
+	addDoc,
+	getFirestore,
+	collection,
+	type DocumentData,
+	serverTimestamp
+} from "firebase/firestore";
 import { app } from "../firebase";
 import { BaseModel } from "../models/BaseModel";
 
 export abstract class BaseRepository<T extends BaseModel> {
+	private static readonly UNIQUE_FIELD_COLLECTION = "z_UNIQUE_CONSTRAINTS";
 	protected readonly firestore = getFirestore(app);
 
 	protected constructor(
 		protected readonly collection: string
 	) {}
+
+	protected async createUniqueField(documentId: string, field: string, value: string): Promise<void> {
+		const ref = doc(this.firestore, BaseRepository.UNIQUE_FIELD_COLLECTION, this.collection, field, value);
+
+		return setDoc(ref, {
+			created: serverTimestamp(),
+			for_document: documentId
+		});
+	}
 
 	async getById(id: string): Promise<DocumentData | undefined> {
 		const ref = doc(this.firestore, this.collection, id);

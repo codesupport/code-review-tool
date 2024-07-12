@@ -10,4 +10,6 @@ export class GitRepositoryModel extends BaseModel {
 	user!: string;
 
 	reviewers!: string[];
+
+	hash!: string;
 }
