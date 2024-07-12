@@ -13,7 +13,7 @@ import { BaseModel } from "../models/BaseModel";
 
 export abstract class BaseRepository<T extends BaseModel> {
 	private static readonly UNIQUE_FIELD_COLLECTION = "z_UNIQUE_CONSTRAINTS";
-	private readonly firestore = getFirestore(app);
+	protected readonly firestore = getFirestore(app);
 
 	protected constructor(
 		protected readonly collection: string
