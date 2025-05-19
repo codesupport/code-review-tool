@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { getAuth, GithubAuthProvider, signInWithRedirect } from "firebase/auth";
+import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { app } from "../firebase";
 
 const auth = getAuth(app);
@@ -18,7 +18,10 @@ export function useLogin(): UseLoginHook {
 			provider.addScope("read:user");
 			provider.addScope("public_repo");
 
-			await signInWithRedirect(auth, provider);
+			const result = await signInWithPopup(auth, provider);
+			const credential = GithubAuthProvider.credentialFromResult(result);
+
+			sessionStorage.setItem("github_token", import.meta.env.VITE_LOCAL_GITHUB_TOKEN ?? credential!.accessToken!);
 
 			setLoading(false);
 		},
